@@ -2,6 +2,7 @@ const path = require('path');
 const sharp = require('sharp');
 const fs = require('fs');
 const Products = require('../model/tb_products');
+const GetDateTime = require('./GetDateTime');
 
 const submitProduct = async (req, res) => {
     let imageFile;
@@ -17,7 +18,7 @@ const submitProduct = async (req, res) => {
     productName = req.body.name;
     productPrice = req.body.price;
 
-    const timestamp = new Date().toISOString().replace(/:/g, '-').replace(/\..+/, '');
+    const timestamp = GetDateTime();
     const fileExtension = path.extname(imageFile.name);
     const fileNameWithTimestamp = `${timestamp}_${fileExtension}`;
 
@@ -34,7 +35,7 @@ const submitProduct = async (req, res) => {
             .toBuffer();
 
         fs.writeFileSync(imageFileUploadPath, processedImageBuffer);
-        await submitProductToDB(productName, productPrice, fileNameWithTimestamp);
+        await submitProductToDB(productName, productPrice, imageFileUploadPath);
 
         res.send('File uploaded: ' + imageFileUploadPath);
         console.log('File Uploaded Successfully!');

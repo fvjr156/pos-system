@@ -17,7 +17,7 @@ export const submitProduct = async function(image, productName, productPrice){
     formData.append('price', productPrice);
 
     try{
-        const response  = await axios.post('http://localhost:5001/submit-product', formData, {
+        const response  = await axios.post('http://localhost:3001/submit-product', formData, {
             headers : {
                 'Content-Type': 'multipart/form-data'
             }
