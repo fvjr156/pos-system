@@ -1,0 +1,1 @@
+this is pos system made by juniorvillanueva156 as part of the expo systems for senior high school exposition in sti college marikina. initial readme commit so don't expect anything

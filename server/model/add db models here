@@ -1,0 +1,22 @@
++----------------------+--------------+------+-----+---------+----------------+
+| Field                | Type         | Null | Key | Default | Extra          |
++----------------------+--------------+------+-----+---------+----------------+
+| id                   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| tr_change            | int(11)      | YES  |     | NULL    |                |
+| tr_customername      | varchar(255) | YES  |     | NULL    |                |
+| tr_order             | varchar(255) | YES  |     | NULL    |                |
+| tr_payment           | int(11)      | YES  |     | NULL    |                |
+| tr_priceperquantity  | int(11)      | YES  |     | NULL    |                |
+| tr_quantity          | int(11)      | YES  |     | NULL    |                |
+| tr_totalprice        | int(11)      | YES  |     | NULL    |                |
+| tr_transactiondate   | varchar(255) | YES  |     | NULL    |                |
+| tr_transactionnumber | varchar(255) | YES  |     | NULL    |                |
++----------------------+--------------+------+-----+---------+----------------+
+gawan mo ito ng db model sa tb_transaction.js
+
+products
+
+id pk ai nonnull
+product image naka blob longblob
+product name varchar
+product price float
