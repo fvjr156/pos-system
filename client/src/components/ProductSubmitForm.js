@@ -4,6 +4,8 @@ import { Toolbar } from "./Toolbar";
 import '../App.css';
 import { LoadingComponent } from "./LoadingComponent";
 import { submitProduct } from "../api/product_opers";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const ProductSubmitForm = function() {
     const [image, setImage] = useState(null);
@@ -41,7 +43,14 @@ export const ProductSubmitForm = function() {
 
     const HandleProductSubmit = function(event) {
         event.preventDefault();
-        submitProduct(image, productName, productPrice); //pass data and file here pls
+        let submitCode = submitProduct(image, productName, productPrice);
+        if(submitCode)
+        {
+            toast.success("File uploaded successfully!");
+        }
+        else {
+            toast.error("An error occurred.");
+        }
     }
 
     if (datetime === null) {
@@ -94,6 +103,7 @@ export const ProductSubmitForm = function() {
                     </div>
                 </div>
                 <Toolbar datetime={datetime}/>
+                <ToastContainer/>
             </>
         );
 }}

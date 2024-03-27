@@ -23,9 +23,11 @@ export const submitProduct = async function(image, productName, productPrice){
             }
         });
         console.log("File uploaded successfully. ", response);
+        return 0;
 
     } catch(error){
         console.error("Error uploading file.", error);
+        return 1;
 
     }
 }
