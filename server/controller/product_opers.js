@@ -3,6 +3,8 @@ const sharp = require('sharp');
 const fs = require('fs');
 const Products = require('../model/tb_products');
 const GetDateTime = require('./GetDateTime');
+const sequelize = require('../configs/dbconfig');
+
 
 const submitProduct = async (req, res) => {
     let imageFile;
@@ -35,7 +37,7 @@ const submitProduct = async (req, res) => {
             .toBuffer();
 
         fs.writeFileSync(imageFileUploadPath, processedImageBuffer);
-        await submitProductToDB(productName, productPrice, imageFileUploadPath);
+        await submitProductToDB(productName, productPrice, fileNameWithTimestamp);
 
         res.send('File uploaded: ' + imageFileUploadPath);
         console.log('File Uploaded Successfully!');
@@ -44,7 +46,7 @@ const submitProduct = async (req, res) => {
         console.log("Price:", productPrice);
     } catch (error) {
         console.error('Error processing image or submitting product:', error);
-        res.status(500).send('Error processing image or submitting product');
+        res.status(500).json({error: 'Error processing image or submitting product'});
     }
 };
 
@@ -63,4 +65,13 @@ const submitProductToDB = async (productName, productPrice, imageFileName) => {
     }
 };
 
-module.exports = { submitProduct };
+const getProducts = async (req, res) => {
+    try{
+        const products = await sequelize.query('SELECT * FROM tb_products;', {type: sequelize.QueryTypes.SELECT});
+        res.json(products);
+    } catch {
+        res.status(500).json({error: "Error Fetching Products"});
+    }
+}
+
+module.exports = { submitProduct, getProducts};

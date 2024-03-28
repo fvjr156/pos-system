@@ -47,6 +47,10 @@ export const ProductSubmitForm = function() {
         if(submitCode)
         {
             toast.success("File uploaded successfully!");
+            setImage(null);
+            setImageUrl(null);
+            setProductName('');
+            setProductPrice('');
         }
         else {
             toast.error("An error occurred.");
