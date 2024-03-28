@@ -8,28 +8,29 @@ export const fetchProducts = async function(){
         const response = await axios.get(`${api.url}/get-products`);
         return response;
     } catch(error){
-        console.error('Error fetching products', error);
+        throw error;
     }
 }
 //submit file and data here
-export const submitProduct = async function(image, productName, productPrice){
-    const formData  = new FormData();
+export const submitProduct = async function(image, productName, productPrice) {
+    const formData = new FormData();
     formData.append('image', image);
     formData.append('name', productName);
     formData.append('price', productPrice);
-
-    try{
-        const response  = await axios.post(`${api.url}/submit-product`, formData, {
-            headers : {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        console.log("File uploaded successfully. ", response);
-        return 0;
-
-    } catch(error){
-        console.error("Error uploading file.", error);
-        return 1;
-
+  
+    try {
+      const response = await axios.post(`${api.url}/submit-product`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      console.log("File uploaded successfully. ", response);
+      return {
+        success: true,
+        data: response.data
+      };
+    } catch (error) {
+      console.error("Error uploading file:", error);
+      throw error;
     }
-}
+  }

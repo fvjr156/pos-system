@@ -4,8 +4,9 @@ import { fetchProducts } from "../api/product_opers";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { api } from "../api/config";
+import './styles/ProductList.css';
 
-export const ProductList = function(){
+function ProductList(){
     const [products, setProducts] = useState([]);
 
     useEffect(()=>{
@@ -23,32 +24,24 @@ export const ProductList = function(){
 
     return(
         <>
-            <div>
             <h2>Product List</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product Image</th>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                </tr>
-                </thead>
-                <tbody>
+            <div className="product-list-container-div">
                 {products.map((product) => (
-                    <tr key={product.id}>
-                    <td>{product.id}</td>
-                    <td>
-                        <img src={api.url+'/'+product.product_image_filepath} alt={product.product_name} width="100" />
-                    </td>
-                    <td>{product.product_name}</td>
-                    <td>{product.product_price}</td>
-                    </tr>
+                    <div>
+                        <div className="product-card element-with-scroll" key={product.id}>
+                            <div className="product-card-image-container">
+                                {<img src={api.url+'/'+product.product_image_filepath} alt={product.product_name} className="product-image"/>}
+                            </div>
+                            <h3>{product.product_name}</h3>
+                            <span className="product-price">Price: ₱{product.product_price}</span>
+                        </div>
+                    </div>
                 ))}
-                </tbody>
-            </table>
             </div>
             <ToastContainer/>
+            
         </>
     );
 }
+
+export default ProductList;

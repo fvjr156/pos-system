@@ -5,8 +5,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import ToastDemo from './ToastDemo';
 import App from './App';
-import { ProductSubmitForm } from './components/ProductSubmitForm';
-import { ProductList } from './components/ProductList';
+import ProductSubmitForm from './components/ProductSubmitForm';
+import ProductList from './components/ProductList';
+import LoadingComponent from './components/LoadingComponent';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/productsubmitform" element={<ProductSubmitForm/>}/>
         <Route path="/productlist" element={<ProductList/>}/>
         <Route path="/toastdemo" element={<ToastDemo/>}/>
+        <Route path="/load" element={<LoadingComponent/>}/>
       </Routes>
     </Router>
   </React.StrictMode>

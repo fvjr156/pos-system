@@ -1,10 +1,12 @@
-import '../App.css';
+import './styles/LoadingComponent.css';
 import React from 'react';
 
-export const LoadingComponent = function(){
+function LoadingComponent(){
     return (
         <>
             <div className="loadingcomponent">Loading... Please wait.</div>
         </>
     )
 };
+
+export default LoadingComponent;
