@@ -21,4 +21,6 @@ createRoot(document.getElementById('root')).render(
       </Routes>
     </Router>
   </React.StrictMode>
+  //access pages like these for now, code muna ung features bago lagyan ng main screen toolbar and sidebar tas
+  //nag aaral pa akong routing and having finished code sa components can make routing easier and d nakakalito
 );
