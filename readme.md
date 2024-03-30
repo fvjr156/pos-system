@@ -1,1 +1,13 @@
-this is pos system made by juniorvillanueva156 as part of the expo systems for senior high school exposition in sti college marikina. initial readme commit so don't expect anything
+# Point-of-Sales System (POS)
+
+by fvjr156
+
+personal web application development project
+
+for the STI SHS Exposition
+
+for the purposes of
+
+- upskilling
+- learning new dev skills
+- prepare for development of functional systems for the event
