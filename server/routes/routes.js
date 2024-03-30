@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const {submitProduct, getProducts} = require('../controller/product_opers');
-const {serverTest} = require('../controller/opers');
+const {post_uploadProduct, get_allProducts} = require('../controller/product_opers');
+const {get_ServerTest} = require('../controller/opers');
 
 
-router.get('/', serverTest);
-router.post('/submit-product', submitProduct);
-router.get('/get-products', getProducts);
+router.get('/', get_ServerTest);
+router.post('/post-uploadproduct', post_uploadProduct);
+router.get('/get-allproducts', get_allProducts);
 
 module.exports = router;

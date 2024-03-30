@@ -1,11 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-
 const router = require('./routes/routes');
 const fileupload = require('express-fileupload');
-
-const sequelize = require('./configs/dbconfig');
+const {db_testConnection} = require('./controller/opers');
 
 const app = express();
 dotenv.config();
@@ -17,16 +15,8 @@ app.use(express.static('uploads'))
 
 app.use('/', router);
 
-try {
-    sequelize.sync();
-    console.log("Database Connected Successfully");
-} catch (error) {
-    console.log("Connecting error " + error);
-}
+db_testConnection();
 
-app.listen(process.env.SERVER_PORT, function(){
-    console.log('Server running on port', process.env.SERVER_PORT);
+app.listen(process.env.SERVER_PORT, ()=>{
+    console.log(`Server is running on PORT ${process.env.SERVER_PORT}.`);
 });
-
-
-

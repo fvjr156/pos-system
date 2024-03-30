@@ -1,16 +1,14 @@
-
-
 function GetDateTime(){
     const cd = new Date();
-    const year = cd.getFullYear();
-    const month = String(cd.getMonth()+1).padStart(2, '0');
-    const day = String(cd.getDate()).padStart(2, '0');
-    const hour = String(cd.getHours()).padStart(2, '0');
-    const minute = String(cd.getMinutes()).padStart(2, '0');
-    const second = String(cd.getSeconds()).padStart(2, '0');
+    const yr = cd.getFullYear();
+    const mo = String(cd.getMonth()+1).padStart(2, '0');
+    const dy = String(cd.getDate()).padStart(2, '0');
+    const ho = String(cd.getHours()).padStart(2, '0');
+    const mn = String(cd.getMinutes()).padStart(2, '0');
+    const sc = String(cd.getSeconds()).padStart(2, '0');
 
-    const dtstr = `${year}-${month}-${day}T-${hour}-${minute}-${second}`;
-    return dtstr;
+    const dateTimeString = `${yr}-${mo}-${dy}T-${ho}-${mn}-${sc}`;
+    return dateTimeString;
 }
 
 module.exports = GetDateTime;

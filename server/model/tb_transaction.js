@@ -1,7 +1,7 @@
-import { DataTypes } from 'sequelize';
-import database from '../configs/dbconfig.js';
+const DataTypes = require('sequelize');
+const database = require('../configs/dbconfig');
 
-const Transaction = database.define('Transaction', {
+const Transactions = database.define('Transaction', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -53,4 +53,4 @@ const Transaction = database.define('Transaction', {
 
 });
 
-export default Transaction;
+export default Transactions;

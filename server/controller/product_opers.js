@@ -6,28 +6,28 @@ const GetDateTime = require('./GetDateTime');
 const sequelize = require('../configs/dbconfig');
 
 
-const submitProduct = async (req, res) => {
-    let imageFile;
-    let imageFileUploadPath;
-    let productName;
-    let productPrice;
+const post_uploadProduct = async (req, res) => {
+    let imgFile;
+    let imgFileUplPath;
+    let product_name;
+    let product_price;
 
     if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
+        return res.status(400).json({error_msg: 'ERROR: Nothing uploaded.', error_msg2: 'Please complete the submit form.'});
     }
 
-    imageFile = req.files.image;
-    productName = req.body.name;
-    productPrice = req.body.price;
+    imgFile = req.files.key_productImage;
+    product_name = req.body.key_productName;
+    product_price = req.body.key_productPrice;
 
     const timestamp = GetDateTime();
-    const fileExtension = path.extname(imageFile.name);
-    const fileNameWithTimestamp = `${timestamp}_${fileExtension}`;
+    const imgFile_ext = path.extname(imgFile.name);
+    const imgFile_newFileName = `${timestamp}_${imgFile_ext}`;
 
-    imageFileUploadPath = path.join(__dirname, '../uploads/', fileNameWithTimestamp);
+    imgFileUplPath = path.join(__dirname, '../uploads/', imgFile_newFileName);
 
     try {
-        const processedImageBuffer = await sharp(imageFile.data)
+        const imgProcessedBuffer = await sharp(imgFile.data)
             .resize({
                 width: 256,
                 height: 256,
@@ -36,42 +36,38 @@ const submitProduct = async (req, res) => {
             })
             .toBuffer();
 
-        fs.writeFileSync(imageFileUploadPath, processedImageBuffer);
-        await submitProductToDB(productName, productPrice, fileNameWithTimestamp);
+        fs.writeFileSync(imgFileUplPath, imgProcessedBuffer);
+        await db_addProduct(product_name, product_price, imgFile_newFileName);
 
-        res.send('File uploaded: ' + imageFileUploadPath);
-        console.log('File Uploaded Successfully!');
-        console.log("Path:", imageFileUploadPath);
-        console.log("Name:", productName);
-        console.log("Price:", productPrice);
+        res.status(200).json({success: "Upload successful."});
     } catch (error) {
-        console.error('Error processing image or submitting product:', error);
-        res.status(500).json({error: 'Error processing image or submitting product'});
+        console.error(`ERROR: Processing or uploading error. ${error}`);
+        res.status(500).json({error_msg: 'ERROR: Processing or uploading error.', error_msg2: error});
     }
 };
 
 
-const submitProductToDB = async (productName, productPrice, imageFileName) => {
+const db_addProduct = async (productName, productPrice, imageFileName) => {
     try {
         await Products.create({
             product_image_filepath: imageFileName,
             product_name: productName,
             product_price: productPrice
         });
-        console.log('Product saved to the database');
+        console.log('Entry saved in database.');
     } catch (error) {
-        console.error('Error saving product to the database:', error);
+        console.error(`ERROR: Cannot save entry in database. ${error}`);
         throw error;
     }
 };
 
-const getProducts = async (req, res) => {
+const get_allProducts = async (req, res) => {
     try{
-        const products = await sequelize.query('SELECT * FROM tb_products;', {type: sequelize.QueryTypes.SELECT});
-        res.json(products);
-    } catch {
-        res.status(500).json({error: "Error Fetching Products"});
+        const db_products = await sequelize.query('SELECT * FROM tb_products;', {type: sequelize.QueryTypes.SELECT});
+        res.json(db_products);
+    } catch (error){
+        res.status(500).json({error_msg: `ERROR: Cannot fetch products.`, error_msg2: error});
     }
 }
 
-module.exports = { submitProduct, getProducts};
+module.exports = { post_uploadProduct, get_allProducts};

@@ -1,9 +1,8 @@
-const { DataTypes, Sequelize } = require('sequelize');
+const { Sequelize } = require('sequelize');
 
 const config = require('./config');
 
-//configure the mysql database here
-const sequelize = new Sequelize(
+const database = new Sequelize(
     config.mysql.database,
     config.mysql.user,
     config.mysql.password,
@@ -13,4 +12,4 @@ const sequelize = new Sequelize(
     }
 );
 
-module.exports = sequelize;        
+module.exports = database;        

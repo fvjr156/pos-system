@@ -1,6 +1,6 @@
 .product-list-container-div {
     display: flex;
-    flex-wrap: wrap;
+    width: 90vw;
   }
 .product-card{
     border: 1px solid blue;
@@ -41,3 +41,37 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+.button
+{
+  background-color: white;
+  border: 1px solid black;
+  padding: 5px;
+}
+.button:hover
+{
+  background-color: red;
+  color: white;
+}
+.button:active
+{
+  background-color: rgb(172, 0, 0);
+  color: white;
+}
+
+.cart-indiv-product{
+    padding: 5px;
+    border: 1px solid blue;
+    display: flex;
+    width: 700px;
+    justify-content: start;
+}
+.cart-indiv-product button{
+    margin: 10px;
+    flex: 1;
+
+}
+.cart-indiv-product p{
+    flex: 4;
+    margin-left: 20px;
+}
